@@ -1,6 +1,6 @@
-import usermodel from "../app/models/usermodel";
+const usermodel= require("../app/models/usermodel");
 
-export const loginService = (reqData, callback) => {
+exports.loginService = (reqData, callback) => {
 
     usermodel.findUser(reqData, (err, result) => {
         if (err) {
@@ -12,7 +12,7 @@ export const loginService = (reqData, callback) => {
     })
 }
 
-export const registerService = (reqData, callback) => {
+exports.registerService = (reqData, callback) => {
 
     usermodel.saveUserDetails(reqData, (err, result) => {
         if (err) {

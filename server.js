@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const route = require('./routes/routes')
 
 const app = express();
 
@@ -21,10 +22,12 @@ mongoose.connect(
         process.exit();
     })
 
+app.use('/', route)
+
 app.get('/', (req, res) => {
     res.json({ "message": "Hi welcome to fundoo notes" })
 });
 
-require('./routes/routes')(app);
+require('./routes/routes');
 
 app.listen(3000, () => { console.log("Listening to port 3000") })
