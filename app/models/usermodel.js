@@ -15,14 +15,7 @@ const User = mongoose.model('User', UserSchema);
 
 function modelsCon() { }
 
-modelsCon.prototype.saveUserDetails = (userData, callback) => {
-
-    // let newUserData = new User({
-    //     name: "ABC",
-    //     email: "abc@xyz.com",
-    //     password: "abc"
-    // })
-
+modelsCon.prototype.register = (userData, callback) => {
     let newUserData = new User({
         name: userData.name,
         email: userData.email,
@@ -39,14 +32,12 @@ modelsCon.prototype.saveUserDetails = (userData, callback) => {
     })
 }
 
-modelsCon.prototype.findUser = (userDetails, callback) => {
-    User.find(userDetails.email, (err, result) => {
-        if(err)
-        {
+modelsCon.prototype.login = (usersDetails, callback) => {
+    User.find(usersDetails.email, (err, result) => {
+        if (err) {
             return callback(err);
         }
-        else
-        {
+        else {
             return callback(null, result);
         }
     })

@@ -1,1 +1,1 @@
-module.exports={url:'mongodb://localhost:27017/notes'}
+module.exports={url:'mongodb://localhost:27017/Fundoo'}

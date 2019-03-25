@@ -1,8 +1,8 @@
 const usermodel= require("../app/models/usermodel");
 
-exports.loginService = (reqData, callback) => {
+exports.registerService = (reqData, callback) => {
 
-    usermodel.findUser(reqData, (err, result) => {
+    usermodel.register(reqData, (err, result) => {
         if (err) {
             return callback(err);
         }
@@ -12,9 +12,9 @@ exports.loginService = (reqData, callback) => {
     })
 }
 
-exports.registerService = (reqData, callback) => {
+exports.loginService = (reqData, callback) => {
 
-    usermodel.saveUserDetails(reqData, (err, result) => {
+    usermodel.login(reqData, (err, result) => {
         if (err) {
             return callback(err);
         }
