@@ -1,5 +1,6 @@
 
 const userService = require("../services/userServices")
+const util = require("../util/token")
 
 exports.registerController = (req, res) => {
     userService.registerService(req.body, (err, result) => {
@@ -29,10 +30,13 @@ exports.loginController = (req, res) => {
             });
         }
         else {
-            res.status(200).send({
-                // message: "Login successful",
+            payload = {
+                User_id: result._id,
+                email: userService.email,
                 result: result
-            });
+            }
+            const obj = util.GenerateToken(payload);
+            res.status(200).send(obj)
         }
     })
 }
