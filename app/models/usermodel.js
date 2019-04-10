@@ -31,9 +31,9 @@ userModel.prototype.register = (usersDetails, callback) => {
         }
         else {
             let newUserData = new User({
-                name: usersDetails.name,
-                email: usersDetails.email,
-                password: hash(usersDetails.password)
+                'name': usersDetails.name,
+                'email': usersDetails.email,
+                'password': hash(usersDetails.password)
             })
 
             newUserData.save((err, result) => {
@@ -76,10 +76,11 @@ userModel.prototype.forgotPassword = (usersDetails, callback) => {
             return callback(err);
         }
         else if (result.length > 0) {
+            var middleware=require('../../middleware/sendMail')
             return callback(null, "Take to reset password")
         }
         else {
-            return callback(null, "Invalid email")
+            return callback("invalid email")
         }
     })
 }

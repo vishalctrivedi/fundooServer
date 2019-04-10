@@ -3,6 +3,7 @@ const userService = require("../services/userServices")
 const util = require("../util/token")
 
 exports.registerController = (req, res) => {
+
     userService.registerService(req.body, (err, result) => {
         if (err) {
             res.status(400).send({

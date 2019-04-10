@@ -10,7 +10,7 @@ router.post('/login', userController.loginController);
 
 router.post('/forgotPassword', userController.forgotPasswordController);
 
-router.post('/restPassword', userController.resetPasswordController);
+router.post('/resetPassword', userController.resetPasswordController);
 
 //router.post('/logout', userController.logoutController);
 
