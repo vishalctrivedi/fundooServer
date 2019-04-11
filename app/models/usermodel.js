@@ -21,53 +21,64 @@ function hash(password) {
 }
 
 userModel.prototype.register = (usersDetails, callback) => {
-    User.find({ "email": usersDetails.email }, (err, result) => {
+    try {
+        User.find({ "email": usersDetails.email }, (err, result) => {
 
-        if (err) {
-            return callback("Error in registration")
-        }
-        else if (result.length > 0) {
-            return callback("email already exits");
-        }
-        else {
-            let newUserData = new User({
-                'name': usersDetails.name,
-                'email': usersDetails.email,
-                'password': hash(usersDetails.password)
-            })
+            if (err) {
+                return callback("Error in registration")
+            }
+            else if (result.length > 0) {
+                return callback("email already exits");
+            }
+            else {
+                let newUserData = new User({
+                    'name': usersDetails.name,
+                    'email': usersDetails.email,
+                    'password': hash(usersDetails.password)
+                })
 
-            newUserData.save((err, result) => {
-                if (err) {
-                    return callback(err)
-                }
-                else {
-                    result.password = undefined
-                    return callback(null, result);
-                }
-            })
-        }
-    })
+                newUserData.save((err, result) => {
+                    if (err) {
+                        return callback(err)
+                    }
+                    else {
+                        result.password = undefined
+                        return callback(null, result);
+                    }
+                })
+            }
+        })
+    }
+    catch (err) {
+        console.log("exception.......!register");
+
+    }
 }
 
 userModel.prototype.login = (usersDetails, callback) => {
-    User.findOne({ "email": usersDetails.email }, (err, result) => {
-        if (err) {
-            return callback(err);
-        }
-        else if (result != null) {
-            bcrypt.compare(usersDetails.password, result.password).then(function (res) {
-                if (res) {
-                    return callback(null, "login successful")
-                }
-                else {
-                    return callback("login unsuccessful");
-                }
-            })
-        }
-        else {
-            return callback(null, result);
-        }
-    })
+    try {
+        User.findOne({ "email": usersDetails.email }, (err, result) => {
+            if (err) {
+                return callback(err);
+            }
+            else if (result != null) {
+                bcrypt.compare(usersDetails.password, result.password).then(function (res) {
+                    if (res) {
+                        return callback(null, "login successful")
+                    }
+                    else {
+                        return callback("login unsuccessful");
+                    }
+                })
+            }
+            else {
+                return callback(null, result);
+            }
+        })
+    }
+    catch (err) {
+        console.log("exception......!login");
+    }
 }
 
 userModel.prototype.forgotPassword = (usersDetails, callback) => {
@@ -76,7 +87,8 @@ userModel.prototype.forgotPassword = (usersDetails, callback) => {
             return callback(err);
         }
         else if (result.length > 0) {
-            var middleware=require('../../middleware/sendMail')
+            var middleware = require('../../middleware/sendMail')
+            middleware.sendEmailFunction(usersDetails.email)
             return callback(null, "Take to reset password")
         }
         else {
@@ -85,15 +97,32 @@ userModel.prototype.forgotPassword = (usersDetails, callback) => {
     })
 }
 
+/*userModel.prototype.resetPassword = (usersDetails, callback) => {
+    let newPassword = hash(usersDetails.password, saltRounds);
+    User.updateOne({ _id: req.decoded.payload.user_id }, { password: newPassword })
+        .then(function (res) {
+            if (res) {
+                return callback(null, "Password reset successful")
+            }
+            else {
+                return callback("Password reset unsuccessful");
+            }
+        })
+}*/
+
 userModel.prototype.resetPassword = (usersDetails, callback) => {
-    let newpassword = bcrypt.hashSync(usersDetails.password, saltRounds);
-    User.updateOne({ _id: req.decoded.payload.user_id }, { password: newpassword }).then(function (res) {
-        if (res) {
-            return callback(null, "login successful")
-        }
-        else {
-            return callback("login unsuccessful");
-        }
-    })
+    let newPassword = hash(usersDetails.password, saltRounds);
+    User.updateOne({ email: usersDetails.email }, { password: newPassword })
+        .then(function (res) {
+            if (res) {
+                return callback(null, "Password reset successful")
+            }
+            else {
+                return callback("Password reset unsuccessful");
+            }
+        })
 }
+
+
+
 module.exports = new userModel();
