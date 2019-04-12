@@ -64,7 +64,7 @@ userModel.prototype.login = (usersDetails, callback) => {
             else if (result != null) {
                 bcrypt.compare(usersDetails.password, result.password).then(function (res) {
                     if (res) {
-                        return callback(null, "login successful")
+                        return callback(null, result)
                     }
                     else {
                         return callback("login unsuccessful");

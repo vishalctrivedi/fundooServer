@@ -39,11 +39,13 @@ exports.loginController = (req, res) => {
             else {
                 payload = {
                     User_id: result._id,
-                    email: userService.email,
-                    result: result
+                    email: userService.email
                 }
                 const obj = util.GenerateToken(payload);
-                res.status(200).send(obj)
+                res.status(200).send({
+                    result: result,
+                    token: obj.token
+                })
             }
         })
     }
@@ -74,6 +76,7 @@ exports.forgotPasswordController = (req, res) => {
 }
 
 exports.resetPasswordController = (req, res) => {
+    console.log(req.body);
     userService.resetPasswordService(req.body, (err, result) => {
         if (err) {
             res.status(400).send({
