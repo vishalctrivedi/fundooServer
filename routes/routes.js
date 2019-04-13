@@ -15,6 +15,8 @@ router.post('/resetPassword', userController.resetPasswordController);
 
 router.post('/createNote', noteController.createNoteController);
 
+router.get('/getAllNotes',noteController.getAllNotesController);
+
 //router.post('/logout', userController.logoutController);
 
 module.exports = router;

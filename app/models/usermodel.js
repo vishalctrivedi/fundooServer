@@ -125,4 +125,5 @@ userModel.prototype.resetPassword = (usersDetails, callback) => {
 
 
 
+
 module.exports = new userModel();

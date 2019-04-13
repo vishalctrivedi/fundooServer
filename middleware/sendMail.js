@@ -2,7 +2,7 @@
 var nodeMailer = require('nodemailer');
 
 exports.sendEmailFunction = (userEmail) => {
-    var url = 'http://192.168.0.37:3000/resetPassword'
+    var url = 'http://192.168.0.204:3000/resetPassword'
 
     let transporter = nodeMailer.createTransport({
         service: 'gmail',

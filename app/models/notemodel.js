@@ -11,11 +11,11 @@ const Note = mongoose.model("Note", NoteSchema)
 
 function noteModel() { }
 
-noteModel.prototype.createNote = (req,callback) =>{
-    
+noteModel.prototype.createNote = (req, callback) => {
+
     const newNote = new Note({
-        'title':req.title,
-        'note':req.note
+        'title': req.title,
+        'note': req.note
     })
 
     newNote.save((err, result) => {
@@ -26,6 +26,19 @@ noteModel.prototype.createNote = (req,callback) =>{
             return callback(null, result);
         }
     })
+}
+
+
+noteModel.prototype.getAllNotes = (usersDetails, callback) => {
+    Note.find({}, (err, result) => {
+        if (err) {
+            return callback(err)
+        }
+        else {
+            return callback(null, result)
+        }
+    })
+
 }
 
 

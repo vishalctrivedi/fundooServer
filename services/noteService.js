@@ -16,3 +16,20 @@ exports.createNoteService = (req, callback) => {
         }
     })
 }
+
+exports.getAllNotesService = (req, callback) => {
+
+    noteModel.getAllNotes(req, (err, result) => {
+        try {
+            if (err) {
+                return callback(err);
+            }
+            else {
+                return callback(null, result);
+            }
+        }
+        catch (err) {
+            console.log("exception!!!!!!!!!!!", err)
+        }
+    })
+}
