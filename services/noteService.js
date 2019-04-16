@@ -24,7 +24,9 @@ exports.getAllNotesService = (req, callback) => {
             if (err) {
                 return callback(err);
             }
-            else {
+            else {  
+                console.log("aaaaaaaaaaaaaaaaaaaaa");
+                             
                 return callback(null, result);
             }
         }
