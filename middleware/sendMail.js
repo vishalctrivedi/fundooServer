@@ -8,7 +8,7 @@ exports.sendEmailFunction = (userEmail) => {
         service: 'gmail',
         auth: {
             user: 'iamvishal96@gmail.com',
-            pass: 'vishal@96'
+            pass: 'xxxxxxx'
         },
     })
 
