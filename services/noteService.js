@@ -33,3 +33,20 @@ exports.getAllNotesService = (req, callback) => {
         }
     })
 }
+
+exports.archiveNotesService = (req, callback) => {
+
+    noteModel.archiveNotes(req, (err, result) => {
+        try {
+            if (err) {
+                return callback(err);
+            }
+            else {
+                return callback(null, result);
+            }
+        }
+        catch (err) {
+            console.log("exception!!!!!!!!!!!", err)
+        }
+    })
+}

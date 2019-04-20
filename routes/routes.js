@@ -15,7 +15,9 @@ router.post('/resetPassword', userController.resetPasswordController);
 
 router.post('/createNote', noteController.createNoteController);
 
-router.get('/getAllNotes',noteController.getAllNotesController);
+router.post('/getAllNotes',noteController.getAllNotesController);
+
+router.post('/archiveNotes',noteController.archiveNotesController);
 
 //router.post('/logout', userController.logoutController);
 
